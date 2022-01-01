@@ -1,3 +1,4 @@
+import favicon
 from datetime import datetime
 from ..api import SourceBase, CoverageEntry, Query, ANDQuery
 
@@ -22,23 +23,28 @@ class GoogleNewsSource(SourceBase):
             sort_by='publishedAt',
             page_size=GoogleNewsSource.PAGE_SIZE
         )
-
         return response['articles']
 
 
     def result_to_entry(self, result) -> CoverageEntry:
+        logo = None
+        icons = favicon.get(result['url'])
+        if len(icons) > 0:
+            logo = icons[0]
         entry = CoverageEntry(
-            source_cls=GoogleNewsSource,
+            source_cls="GoogleNewsSource",
             actor_primary=result['source']['name'],
             actor_secondary=result['author'],
             reach=None,
             country=None,
-            actor_logo=None,
+            actor_logo=logo.url,
             date=datetime.strptime(
                 result['publishedAt'],
                 "%Y-%m-%dT%H:%M:%SZ"
             ),
-            body=result['title'] + '\n' + result['description'],
-            url=result['url']
+            body=result['description'],
+            title=result['title'],
+            url=result['url'],
+            image_url=result['urlToImage']
         )
         return entry

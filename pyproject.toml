@@ -9,6 +9,8 @@ python = "^3.9"
 praw = "^7.5.0"
 tweepy = "^4.4.0"
 newsapi-python = "^0.2.6"
+python-frontmatter = "^1.0.0"
+favicon = "^0.7.0"
 
 [tool.poetry.dev-dependencies]
 

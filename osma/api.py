@@ -1,10 +1,10 @@
-from typing import Type, List, TypeVar
+from typing import List, TypeVar, Optional
 from datetime import datetime
 from dataclasses import dataclass
 
 @dataclass
 class CoverageEntry:
-    source_cls: Type
+    source_cls: str
     actor_primary: str
     actor_secondary: str
     reach: int
@@ -13,7 +13,8 @@ class CoverageEntry:
     date: datetime
     body: str
     url: str
-
+    title: str
+    image_url: str
 
 class Query:
     pass
@@ -60,8 +61,24 @@ class SourceBase:
 
 @dataclass
 class CoverageAggreagatorBase:
-    def main(self):
+    sources: List[SourceBase]
+    query: str
+
+    def save_entry(self, entry: CoverageEntry):
         pass
+
+    def get_last_entry_date(self, source) -> Optional[datetime]:
+        pass
+
+    def run(self):
+        for source in self.sources:
+            last_entry_date = self.get_last_entry_date(source.__class__.__name__)
+            new_entries = source.fetch_entries(
+                self.query,
+                from_timestamp=last_entry_date
+            )
+            for entry in new_entries:
+                self.save_entry(entry)
 
 
 

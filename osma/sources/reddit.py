@@ -37,14 +37,16 @@ class RedditSource(SourceBase):
 
     def result_to_entry(self, result) -> CoverageEntry:
         entry = CoverageEntry(
-            source_cls=RedditSource,
+            source_cls="RedditSource",
             actor_primary=result.author.name,
             actor_secondary=result.subreddit.display_name,
             reach=result.score,
             country=None,
-            actor_logo=None,
+            actor_logo=result.author.icon_img,
             date=datetime.fromtimestamp(result.created_utc),
-            body=result.title + '\n' + result.selftext,
-            url=result.url
+            body=result.selftext,
+            title=result.title,
+            url=result.url,
+            image_url=None
         )
         return entry
