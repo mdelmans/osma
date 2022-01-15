@@ -3,11 +3,12 @@ from ..api import SourceBase, CoverageEntry, Query, ANDQuery
 
 from praw import Reddit
 
+
 class RedditSource(SourceBase):
-    def __init__(self, client_id, secret, user_agent):
+    def __init__(self, client_id, client_secret, user_agent):
         self._client = Reddit(
             client_id=client_id,
-            client_secret=secret,
+            client_secret=client_secret,
             user_agent=user_agent
         )
 
@@ -22,7 +23,7 @@ class RedditSource(SourceBase):
         else:
             raise TypeError("Only supporting AND queries at the moment")
 
-    def get_query_results(self, query:str, from_timestamp: datetime=None):
+    def get_query_results(self, query: str, from_timestamp: datetime = None):
         listings = self._client.subreddit("all").search(query, sort='new')
         if from_timestamp is None:
             return listings
@@ -36,17 +37,14 @@ class RedditSource(SourceBase):
             return res
 
     def result_to_entry(self, result) -> CoverageEntry:
-        entry = CoverageEntry(
-            source_cls="RedditSource",
+        entry = self._create_new_entry(
             actor_primary=result.author.name,
             actor_secondary=result.subreddit.display_name,
-            reach=result.score,
-            country=None,
-            actor_logo=result.author.icon_img,
+            score=result.score,
+            actor_logo=getattr(result.author, "icon_img", None),
             date=datetime.fromtimestamp(result.created_utc),
             body=result.selftext,
             title=result.title,
-            url=result.url,
-            image_url=None
+            url=result.url
         )
         return entry

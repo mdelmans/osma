@@ -11,6 +11,11 @@ tweepy = "^4.4.0"
 newsapi-python = "^0.2.6"
 python-frontmatter = "^1.0.0"
 favicon = "^0.7.0"
+click = "^8.0.3"
+toml = "^0.10.2"
+
+[tool.poetry.scripts]
+osma = 'osma.cli:osma'
 
 [tool.poetry.dev-dependencies]
 

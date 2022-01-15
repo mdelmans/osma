@@ -4,6 +4,7 @@ from ..api import SourceBase, CoverageEntry, Query, ANDQuery
 
 from newsapi import NewsApiClient
 
+
 class GoogleNewsSource(SourceBase):
     PAGE_SIZE = 100
 
@@ -16,7 +17,7 @@ class GoogleNewsSource(SourceBase):
         else:
             raise TypeError("Only supporting AND queries at the moment")
 
-    def get_query_results(self, query:str, from_timestamp: datetime=None):
+    def get_query_results(self, query: str, from_timestamp: datetime = None):
         response = self._client.get_everything(
             q=query,
             from_param=from_timestamp,
@@ -25,18 +26,14 @@ class GoogleNewsSource(SourceBase):
         )
         return response['articles']
 
-
     def result_to_entry(self, result) -> CoverageEntry:
         logo = None
         icons = favicon.get(result['url'])
         if len(icons) > 0:
             logo = icons[0]
-        entry = CoverageEntry(
-            source_cls="GoogleNewsSource",
+        entry = self._create_new_entry(
             actor_primary=result['source']['name'],
             actor_secondary=result['author'],
-            reach=None,
-            country=None,
             actor_logo=logo.url,
             date=datetime.strptime(
                 result['publishedAt'],

@@ -1,1 +1,1 @@
-from .yekyll import YekyllCoveageAggregator
+from .jekyll import JekyllCoverageAggregator
