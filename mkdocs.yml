@@ -1,5 +1,5 @@
 site_name: OSMA
-repo_url: https://github.com/starlite-api/starlite
+repo_url: https://github.com/mdelmans/osma
 theme:
   name: material
   palette:
