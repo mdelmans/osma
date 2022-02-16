@@ -1,7 +1,11 @@
+"""OSMA core API.
+"""
+
 from typing import List, TypeVar, Optional
 from datetime import datetime
 from dataclasses import dataclass
 from abc import ABCMeta, abstractmethod
+from loguru import logger
 
 
 @dataclass
@@ -274,6 +278,7 @@ class CoverageAggreagatorBase(metaclass=AggregatorMeta):
         """
         for source in self.sources:
             source_name = source.__class__.__name__
+            logger.info(f'Collecting data from {source_name}...')
             last_entry_date = self.get_last_entry_date(source_name)
 
             new_entries = source.fetch_entries(
@@ -282,6 +287,7 @@ class CoverageAggreagatorBase(metaclass=AggregatorMeta):
             )
 
             for entry in new_entries:
+                logger.info(f'Fetched new entry {entry.title}')
                 self.save_entry(entry)
                 if (
                         last_entry_date is None

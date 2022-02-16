@@ -1,0 +1,7 @@
+site_name: OSMA
+repo_url: https://github.com/starlite-api/starlite
+theme:
+  name: material
+  palette:
+      scheme: slate
+      

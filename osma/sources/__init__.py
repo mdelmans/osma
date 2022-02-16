@@ -1,3 +1,5 @@
 from .reddit import RedditSource
 from .twitter import TwitterSource
-from .google import GoogleNewsSource
+from .newsapi import NewsAPISource
+
+__all__ = ['RedditSource', 'TwitterSource', 'NewsAPISource']

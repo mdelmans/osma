@@ -1,7 +1,18 @@
+"""OSMA CLI
+"""
+
+import sys
 import click
 import toml
+from loguru import logger
 
 from osma.api import SourceMeta, AggregatorMeta, QueryMeta
+
+logger.add(
+    sys.stderr,
+    format="{time} {level} {message}",
+    level="INFO"
+)
 
 
 @click.group()
@@ -52,6 +63,7 @@ def osma(ctx, config):
 @click.pass_context
 def run(ctx):
     for aggregator in ctx.obj['aggregators']:
+        logger.info(f'Starting {aggregator.__class__.__name__}')
         aggregator.run()
 
 

@@ -1,11 +1,14 @@
+"""
+"""
 import favicon
 from datetime import datetime
-from ..api import SourceBase, CoverageEntry, Query, ANDQuery
 
 from newsapi import NewsApiClient
+from newsapi.newsapi_exception import NewsAPIException
+from ..api import SourceBase, CoverageEntry, Query, ANDQuery
 
 
-class GoogleNewsSource(SourceBase):
+class NewsAPISource(SourceBase):
     PAGE_SIZE = 100
 
     def __init__(self, api_key):
@@ -18,12 +21,19 @@ class GoogleNewsSource(SourceBase):
             raise TypeError("Only supporting AND queries at the moment")
 
     def get_query_results(self, query: str, from_timestamp: datetime = None):
-        response = self._client.get_everything(
-            q=query,
-            from_param=from_timestamp,
-            sort_by='publishedAt',
-            page_size=GoogleNewsSource.PAGE_SIZE
-        )
+        try:
+            response = self._client.get_everything(
+                q=query,
+                from_param=from_timestamp,
+                sort_by='publishedAt',
+                page_size=self.PAGE_SIZE
+            )
+        except NewsAPIException as e:
+            response = self._client.get_everything(
+                q=query,
+                sort_by='publishedAt',
+                page_size=self.PAGE_SIZE
+            )
         return response['articles']
 
     def result_to_entry(self, result) -> CoverageEntry:
