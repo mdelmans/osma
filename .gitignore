@@ -2,3 +2,5 @@
 **/*.pyc
 projects
 tests
+dist
+site

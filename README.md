@@ -12,7 +12,7 @@ You can easily extend OSMA to use other APIs, check out [Add a new source] on ho
 
 At the moment, OSMA only supports [Jekyll](https://jekyllrb.com/) as an aggregator frontend. But you can easily add your own. See [Add a new aggregator] on how to do it.
 
-See OSMA documentation for more details.
+See [OSMA documentation](https://mdelmans.github.io/osma/) for more details.
 
 ## Contributing
 

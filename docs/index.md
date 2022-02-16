@@ -8,10 +8,9 @@ Currently, OSMA uses the following social media APIs:
 * Reddit using [praw](https://praw.readthedocs.io/en/stable/)
 * NewsAPI using [newsapi](https://newsapi.org/docs/client-libraries/python)
 
-You can easily extend OSMA to use other APIs, check out [Add a new source] on how to do it.
+You can easily extend OSMA to use other APIs by creating a subclass from the `Source` class. 
 
-At the moment, OSMA only supports [Jekyll](https://jekyllrb.com/) as an aggregator frontend. But you can easily add your own. See [Add a new aggregator] on how to do it.
-
+At the moment, OSMA only supports [Jekyll](https://jekyllrb.com/) as an aggregator frontend. But you can easily add your own by crating a subclass form the `Aggregator` class. 
 
 ## Installation
 

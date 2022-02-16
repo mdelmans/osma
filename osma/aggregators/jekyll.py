@@ -12,7 +12,7 @@ from dataclasses import dataclass, asdict
 import json
 import os
 
-from ..api import CoverageAggreagatorBase, Entry
+from ..api import CoverageAggreagatorBase, CoverageEntry
 
 
 @dataclass
@@ -69,7 +69,7 @@ class JekyllCoverageAggregator(CoverageAggreagatorBase):
             f.write(json.dumps(sources))
 
     @staticmethod
-    def entry_to_tags(entry: Entry) -> Dict[str, Any]:
+    def entry_to_tags(entry: CoverageEntry) -> Dict[str, Any]:
         """Converts entry to dictionary of post tags.
 
         Args:
@@ -101,7 +101,7 @@ class JekyllCoverageAggregator(CoverageAggreagatorBase):
             m.update(str(tags.get(key)).encode())
         return m.hexdigest()
 
-    def save_entry(self, entry: Entry) -> None:
+    def save_entry(self, entry: CoverageEntry) -> None:
         """Saves entry to the post location.
         
         Converts entry to a post, and saves it to the post location.
