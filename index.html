@@ -375,8 +375,8 @@
 <li>Reddit using <a href="https://praw.readthedocs.io/en/stable/">praw</a></li>
 <li>NewsAPI using <a href="https://newsapi.org/docs/client-libraries/python">newsapi</a></li>
 </ul>
-<p>You can easily extend OSMA to use other APIs, check out [Add a new source] on how to do it.</p>
-<p>At the moment, OSMA only supports <a href="https://jekyllrb.com/">Jekyll</a> as an aggregator frontend. But you can easily add your own. See [Add a new aggregator] on how to do it.</p>
+<p>You can easily extend OSMA to use other APIs by creating a subclass from the <code>Source</code> class. </p>
+<p>At the moment, OSMA only supports <a href="https://mdelmans.github.io/osma">Jekyll</a> as an aggregator frontend. But you can easily add your own by crating a subclass form the <code>Aggregator</code> class. </p>
 <h2 id="installation">Installation</h2>
 <p>OSMA is availabe on PyPi, so you can install it using you package manager of choice, for example:</p>
 <pre><code class="language-bash">pip install osma
